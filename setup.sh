@@ -8,6 +8,19 @@ TOUCH="/usr/bin/touch"
 github_base='https://raw.githubusercontent.com/'
 repo_path='sufuf3/my-dotfiles/master/'
 
+if  [ $1 = "--reset" ]; then
+    ${ECHO} -e "\n\e[1;36;40mReset to original ENV\n\e[0m";
+    for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc
+    do
+        if [ -e ~/."$file".old ]; then
+            mv ~/."$file".old ~/."$file" &
+        else
+            rm ~/."$file"
+        fi
+    done
+    exit 0
+fi
+
 os="$(uname)"
 if [ "$os" = "FreeBSD" ];then
     ECHO="echo"
@@ -32,6 +45,11 @@ ${ECHO} -e "\n\e[1;36;40mDotfile is started to initial the Unix-like working env
 ${ECHO} -e "\n\e[1;36;40mDownload and setup configs from GitHub...\n\e[0m";
 for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc
 do
+    if [ -e ~/."$file" ] ; then
+        if [ ! -e ~/."$file".old ] ; then
+            cp ~/."$file" ~/."$file".old
+        fi
+    fi
     ${download_o} - "${github_base}${repo_path}${file}" | ${CAT} >> ~/."$file" &
 done
 
