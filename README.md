@@ -7,12 +7,12 @@ This is my dotfiles. It can be automatically initialized environment for Unix-li
 
 ### Use curl
 ```sh
-curl -Lo-  | bash
+curl -Lo- https://goo.gl/pvswme | bash
 ```
 
 ### Use wget
 ```sh
-wget  -O-  | bash
+wget  -O- https://goo.gl/pvswme | bash
 ```
 
 ## Setup locally
@@ -31,7 +31,10 @@ $ sh local_setup.sh --reset
 ```
 
 # Configurations
-- Bash Shell: alias, color
-- Vim: setting, status bar, comfortable color scheme
-- Tmux: status bar include avg load, color adjusment
-- Git: alias, setting, gitignore(global), auto completion, diff-highlight
+- **Bash Shell**: alias, color
+- **Vim**: setting, status bar, comfortable color scheme
+- **Tmux**: status bar include avg load, color adjusment
+- **Git**: alias, setting, gitignore(global), auto completion, diff-highlight
+
+# References
+- https://github.com/PeterDaveHello/Unitial
