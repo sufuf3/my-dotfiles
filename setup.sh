@@ -7,9 +7,10 @@ TOUCH="/usr/bin/touch"
 
 github_base='https://raw.githubusercontent.com/'
 repo_path='sufuf3/my-dotfiles/master/'
+ECHO="echo"
 
 if  [ $1 = "--reset" ]; then
-    ${ECHO} -e "\n\e[1;36;40mReset to original ENV\n\e[0m";
+    echo "Reset to original ENV\n";
     for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc
     do
         if [ -e ~/."$file".old ]; then
@@ -23,7 +24,6 @@ fi
 
 os="$(uname)"
 if [ "$os" = "FreeBSD" ];then
-    ECHO="echo"
     ${ECHO} -e "\n\e[1;36;40mYour operating system is $os\n\e[0m";
     ${ECHO} -e "\n\e[1;36;40mSuppose you have 'fetch' to download files!\n\e[0m";
     download_o='fetch -o'
@@ -39,10 +39,10 @@ else
     fi
 fi
 
-${ECHO} -e "\n\e[1;36;40mDotfile is started to initial the Unix-like working environment...\n\n\e[0m";
+${ECHO} -e "\n\e[1;35;40mDotfile is started to initial the Unix-like working environment...\n\n\e[0m";
 
 
-${ECHO} -e "\n\e[1;36;40mDownload and setup configs from GitHub...\n\e[0m";
+${ECHO} -e "\n\e[1;35;40mDownload and setup configs from GitHub...\n\e[0m";
 for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc
 do
     if [ -e ~/."$file" ] ; then
@@ -54,14 +54,14 @@ do
 done
 
 
-${ECHO} -e "\n\e[1;36;40mDownload VIM color scheme - Kolor...\n\e[0m";
+${ECHO} -e "\n\e[1;35;40mDownload VIM color scheme - Kolor...\n\e[0m";
 ${download_o} ~/.vim/colors/kolor.vim "${github_base}zeis/vim-kolor/master/colors/kolor.vim" &
-${ECHO} -e "\n\e[1;36;40mDownload git contrib - diff-highlight...\n\e[0m";
+${ECHO} -e "\n\e[1;35;40mDownload git contrib - diff-highlight...\n\e[0m";
 ${download_o} ~/.git/contrib/diff-highlight "${github_base}git/git/master/contrib/diff-highlight/diff-highlight" && ${CHMOD} +x ~/.git/contrib/diff-highlight &
-${ECHO} -e "\n\e[1;36;40mDownload git's auto completion configs...\n\e[0m";
+${ECHO} -e "\n\e[1;35;40mDownload git's auto completion configs...\n\e[0m";
 git_auto_complete_path="${github_base}git/git/master/contrib/completion/git-completion."
 ${download_o} ~/.git-completion.bash "${git_auto_complete_path}bash"
 
 wait
 
-${ECHO} -e "\n\e[1;36;40mDotfiles setup was finished!\n\nPlease terminate all other works and restart your shell or re-login.\n\e[0m";
+${ECHO} -e "\n\e[1;35;40mDotfiles setup was finished!\n\nPlease terminate all other works and restart your shell or re-login.\n\e[0m";
