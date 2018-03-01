@@ -11,7 +11,7 @@ ECHO="echo"
 
 if  [ $1 = "--reset" ]; then
     echo "Reset to original ENV\n";
-    for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc
+    for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc bash_aliases
     do
         if [ -e ~/."$file".old ]; then
             mv ~/."$file".old ~/."$file" &
@@ -43,7 +43,7 @@ ${ECHO} -e "\n\e[1;35;40mDotfile is started to initial the Unix-like working env
 
 
 ${ECHO} -e "\n\e[1;35;40mDownload and setup configs from GitHub...\n\e[0m";
-for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc
+for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc bash_aliases
 do
     if [ -e ~/."$file" ] ; then
         if [ ! -e ~/."$file".old ] ; then
@@ -63,5 +63,7 @@ git_auto_complete_path="${github_base}git/git/master/contrib/completion/git-comp
 ${download_o} ~/.git-completion.bash "${git_auto_complete_path}bash"
 
 wait
+
+source ~/.bashrc
 
 ${ECHO} -e "\n\e[1;35;40mDotfiles setup was finished!\n\nPlease terminate all other works and restart your shell or re-login.\n\e[0m";
