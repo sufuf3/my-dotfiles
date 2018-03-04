@@ -19,7 +19,6 @@ if  [ $1 = "--reset" ]; then
             rm ~/."$file"
         fi
     done
-    source ~/.bashrc
     exit 0
 fi
 
@@ -62,7 +61,5 @@ git_auto_complete_path="${github_base}git/git/master/contrib/completion/git-comp
 ${download_o} ~/.git-completion.bash "${git_auto_complete_path}bash"
 
 wait
-
-source ~/.bashrc
 
 ${ECHO} -e "\n\e[1;34;40mDotfiles setup were finished!\n\nPlease terminate all other works and restart your shell or re-login.\n\e[0m";

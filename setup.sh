@@ -64,6 +64,4 @@ ${download_o} ~/.git-completion.bash "${git_auto_complete_path}bash"
 
 wait
 
-source ~/.bashrc
-
 ${ECHO} -e "\n\e[1;35;40mDotfiles setup was finished!\n\nPlease terminate all other works and restart your shell or re-login.\n\e[0m";
