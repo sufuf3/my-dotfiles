@@ -34,3 +34,7 @@ alias wgetncc='wget --no-check-certificate'
 alias last='last | less'
 alias tree='tree -C'
 alias optipng='optipng -o7 -zm1-9 -preserve'
+
+# Kubernetes alias
+alias k="kubectl"
+alias ka="kubectl get node,pods,svc,deploy -o wide"
