@@ -1,0 +1,49 @@
+#!/bin/sh
+
+CAT="/bin/cat"
+CHMOD="/bin/chmod"
+MKDIR="/bin/mkdir"
+TOUCH="/usr/bin/touch"
+
+github_base='https://raw.githubusercontent.com/'
+repo_path='sufuf3/my-dotfiles/master/'
+
+os="$(uname)"
+if [ "$os" = "FreeBSD" ];then
+    ECHO="echo"
+    ${ECHO} -e "\n\e[1;36;40mYour operating system is $os\n\e[0m";
+    ${ECHO} -e "\n\e[1;36;40mSuppose you have 'fetch' to download files!\n\e[0m";
+    download_o='fetch -o'
+else
+    ECHO="/bin/echo"
+    ${ECHO} -e "\n\e[1;36;40mYour operating system is $os\n\e[0m";
+    if type "curl" > /dev/null 2>&1; then
+        download_o='curl --compressed -#o'
+    elif type "wget" > /dev/null 2>&1; then
+        download_o='wget --no-timestamping --no-verbose -O '
+    else
+        echo "Unitial needs 'wget' or 'curl' to download the assets." 1>&2
+    fi
+fi
+
+${ECHO} -e "\n\e[1;36;40mDotfile is started to initial the Unix-like working environment...\n\n\e[0m";
+
+
+${ECHO} -e "\n\e[1;36;40mDownload and setup configs from GitHub...\n\e[0m";
+for file in gitconfig bashrc bash_profile vimrc gitignore_global tmux.conf wgetrc curlrc
+do
+    ${download_o} - "${github_base}${repo_path}${file}" | ${CAT} >> ~/."$file" &
+done
+
+
+${ECHO} -e "\n\e[1;36;40mDownload VIM color scheme - Kolor...\n\e[0m";
+${download_o} ~/.vim/colors/kolor.vim "${github_base}zeis/vim-kolor/master/colors/kolor.vim" &
+${ECHO} -e "\n\e[1;36;40mDownload git contrib - diff-highlight...\n\e[0m";
+${download_o} ~/.git/contrib/diff-highlight "${github_base}git/git/master/contrib/diff-highlight/diff-highlight" && ${CHMOD} +x ~/.git/contrib/diff-highlight &
+${ECHO} -e "\n\e[1;36;40mDownload git's auto completion configs...\n\e[0m";
+git_auto_complete_path="${github_base}git/git/master/contrib/completion/git-completion."
+${download_o} ~/.git-completion.bash "${git_auto_complete_path}bash"
+
+wait
+
+${ECHO} -e "\n\e[1;36;40mDotfiles setup was finished!\n\nPlease terminate all other works and restart your shell or re-login.\n\e[0m";
