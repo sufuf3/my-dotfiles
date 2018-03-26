@@ -55,6 +55,7 @@ done
 
 
 ${ECHO} -e "\n\e[1;34;40mDownload VIM color scheme - Kolor...\n\e[0m";
+mkdir -p ~/.vim/colors/
 ${download_o} ~/.vim/colors/kolor.vim "${github_base}zeis/vim-kolor/master/colors/kolor.vim" &
 ${ECHO} -e "\n\e[1;34;40mDownload git's auto completion configs...\n\e[0m";
 git_auto_complete_path="${github_base}git/git/master/contrib/completion/git-completion."
