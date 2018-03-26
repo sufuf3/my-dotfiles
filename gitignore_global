@@ -1,9 +1,26 @@
+# From https://www.gitignore.io
+### Vim ###
+# swap
+.sw[a-p]
+.*.sw[a-p]
+# session
+Session.vim
+# temporary
+.netrwhist
+*~
 
-.*.sw[a-z]
-*.nfs.*
-*.out
+### C ###
+# Prerequisites
+*.d
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+# Executables
 *.exe
-
-.DS_Store
-
-npm-debug.log
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex

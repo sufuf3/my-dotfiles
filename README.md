@@ -1,94 +1,47 @@
-This is a beta verion
-=====================
-no dangerous and harm, but it's not complete!
+# My Dotfiles
 
-Unitial
-=======
-Automatic initialize environment for Unix-like operating system!
+This is my dotfiles. It can be automatically initialized environment for Unix-like operating system.
 
+# Setup
+## Quick Setup
 
-Introduction
-============
-I hope to make a script to initialize the environment for friendly use in Unix-like OS,
-
-Currently, I can only aim(and test) at FreeBSD and most Linux distros.
-(Originally, I do this for myself only, but I think I can share it to other people, so I upload it to github!)
-
-If you are interesting in the very small project, welcome to fork and feedback, or join it!
-
-Any question and suggestion, please let me know, thanks.
-
-
-Requirement
-===========
-If you are using FreeBSD, there is no additional requirement, please just make sure your `fetch` command works fine.
-
-On other unix environment, please prepare `curl` or `wget`, so that the install script can get other files.
-
-* you can install curl and wget by apt-get, yum or homebrew, pacman, it depends on your operating system.
-
-
-Installation
-==============
-
-Install by this one line command if you have `curl`:
-
+### Use curl
 ```sh
-curl -Lo- https://goo.gl/FGs2Fu | bash
+curl -Lo- https://goo.gl/pvswme | bash
 ```
 
-If you don't have `curl` but your have `wget`:
+### Use wget
 ```sh
-wget  -O- https://goo.gl/FGs2Fu | bash
+wget  -O- https://goo.gl/pvswme | bash
 ```
 
-If you are using FreeBSD without both `wget` and `curl`, try:
+## Setup locally
 ```sh
-fetch -o- https://goo.gl/FGs2Fu | bash
+$ git clone https://github.com/sufuf3/my-dotfiles.git
+$ cd my-dotfiles/
+$ sh local_setup.sh
 ```
 
-And all works will be done in seconds.
+# Reset
+## Reset locally
+```sh
+$ git clone https://github.com/sufuf3/my-dotfiles.git
+$ cd my-dotfiles/
+$ sh local_setup.sh --reset
+```
 
-If you know how to use git and already installed it, you can also clone this repo, but there is no need.
+# Configurations
+- **Bash Shell**: alias, color
+- **Vim**: setting, status bar, comfortable color scheme
+    - Add `fatih/vim-go` plugin
+        ```sh
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        git clone https://github.com/fatih/vim-go.git ~/.vim/plugged/vim-go
+        ```
 
-I hope it can be used very easy! And if you got git on your machine, maybe you already initialized it by yourself:)
+- **Tmux**: status bar include avg load, color adjusment
+- **Git**: alias, setting, gitignore(global), auto completion, diff-highlight
 
-This is design for whom? and for what?
-======================================
-Originally, this is used for myself only, I hate to configure in a new environment everytime!
-
-I think that maybe I can share it to someone else, so I did some modify and upload on github! 
-
-
-What's in it?
-=============
-Bash/tcsh/csh/zsh Shell :
-auto completion, useful alias, keymap issue for many users, because BASH is my major shell and I seldom use zsh, bash's feature will be more than others.
-
-Vim :
-useful setting, status bar and comfortable color scheme
-
-Git :
-useful alias and setting, gitignore(global), auto completion, diff-highlight
-
-SSH :
-useful setting, including optimization for X11 forwarding, TCPKeepalicve, compression, and multiplexing!
-
-irssi:
-connection info for oftc and freenode, channel config example
-
-tmux:
-Useful status bar including avg load, color adjusment
-
-w3m:
-color adjusment
-
-Notes
-=====
-Currently, I only test on "lastest" FreeBSD and most Linux distros, if it's not work, please tell me to fix.
-
-Author
-======
-Peter Dave Hello
-
-hsu [at] peterdavehello [dot] org
+# References
+- https://github.com/PeterDaveHello/Unitial
+- https://github.com/fatih/vim-go-tutorial
