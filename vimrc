@@ -1,9 +1,14 @@
+call plug#begin()
+    let g:go_version_warning = 0
+    Plug 'fatih/vim-go'
+call plug#end()
 
 " charset
 set encoding=utf-8                   "enc, vim buffer charset, NOT the file's charset
 set fileencoding=utf-8               "fenc, default save charset
 "fencs, default opening charset priority (as auto detection)
 set fileencodings=utf-8,utf-16le,big5,gb2312,gb18030,gbk,default
+filetype indent off
 
 " enable features which are not Vi compatible but really really nice.
 set nocompatible  "nocp
@@ -17,9 +22,6 @@ set expandtab     "et
 set tabstop=4     "ts
 " auto indent width
 set shiftwidth=4  "sw
-
-" use the indent of the previous line for a newly created line
-set autoindent    "ai
 
 " 256 color mode
 set t_Co=256
@@ -79,7 +81,7 @@ set laststatus=2 "ls
 set display+=lastline
 
 " set code folding feature
-set foldmethod=indent "fdm
+"set foldmethod=indent "fdm
 set foldnestmax=5     "fdn max fold level
 set foldlevel=5       "fdl default fold level
 
@@ -136,12 +138,12 @@ map <F11> :w <CR> :make <CR> :!./%< <CR>
 " au, autocommand
 autocmd FileType make,gitconfig,gitcommit,apache,dockerfile setlocal et!
 autocmd FileType gitcommit setlocal cc=50,72 | setlocal textwidth=72 | highlight ColorColumn ctermbg=cyan
-autocmd FileType html,css,javascript,yaml setlocal sw=2 ts=2
+autocmd FileType html,css,javascript,yaml setlocal sw=2 ts=2 noautoindent
 autocmd FileType fstab setlocal sw=8 ts=8
 
 "=== manually setting filetype ==="
 " au, autocommand
-autocmd BufRead,BufNewFile *.cpp set filetype=cpp
+autocmd BufRead,BufNewFile *.cpp,*.p4 set filetype=cpp
 autocmd BufRead,BufNewFile *.plt set filetype=gnuplot
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile named.conf* set filetype=named
@@ -165,3 +167,75 @@ let g:netrw_liststyle=3
 
 " auto remove trailing whitespace when saving file
 "autocmd BufWritePre * :%s/\s\+$//e
+
+
+"""""""""""""""""""""
+"      Plugins      "
+"""""""""""""""""""""
+
+" vim-go
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+
+
+augroup go
+  autocmd!
+
+  " Show by default 4 spaces for a tab
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+  " :GoBuild and :GoTestCompile
+  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+  " :GoTest
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+  " :GoRun
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+  " :GoDoc
+  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+  " :GoCoverageToggle
+  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+  " :GoInfo
+  autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+  " :GoMetaLinter
+  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+
+  " :GoDef but opens in a vertical split
+  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+  " :GoDef but opens in a horizontal split
+  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+
+  " :GoAlternate  commands :A, :AV, :AS and :AT
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+augroup END
+
+" build_go_files is a custom function that builds or compiles the test file.
+" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
