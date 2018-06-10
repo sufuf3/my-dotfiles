@@ -65,8 +65,7 @@ ${ECHO} -e "\n\e[1;35;40mDownload golang vim configs...\n\e[0m";
 cd ~/ && git clone git://github.com/git/git.git && cd ~/git/contrib/diff-highlight && make && cp ~/git/contrib/diff-highlight/diff-highlight ~/.git/contrib/diff-highlight && ${CHMOD} +x ~/.git/contrib/diff-highlight &
 cd ~/ && rm -rf ~/git
 mkdir -p ~/.vim/autoload/
-#curl -fLo ~/.vim/autoload/plug.vim --create-dirs {github_base}junegunn/vim-plug/master/plug.vim
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+${download_o} ~/.vim/colors/plug.vim "${github_base}junegunn/vim-plug/master/plug.vim" &
 mkdir -p ~/.vim/plugged/
 git clone https://github.com/fatih/vim-go.git ~/.vim/plugged/vim-go
 wait

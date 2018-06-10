@@ -66,7 +66,8 @@ ${ECHO} -e "\n\e[1;35;40mDownload git's auto completion configs...\n\e[0m";
 #${download_o} ~/.git-completion.bash "${git_auto_complete_path}bash"
 ${download_o} ~/.git-completion.bash "https://raw.githubusercontent.com/git/git/4ce72180abe72dbb40f5e6a517deea814014e005/contrib/completion/git-completion.bash"
 ${ECHO} -e "\n\e[1;35;40mDownload golang vim configs...\n\e[0m";
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs {github_base}junegunn/vim-plug/master/plug.vim
+mkdir -p ~/.vim/autoload/
+${download_o} ~/.vim/colors/plug.vim "${github_base}junegunn/vim-plug/master/plug.vim" &
 mkdir -p ~/.vim/plugged/
 git clone https://github.com/fatih/vim-go.git ~/.vim/plugged/vim-go
 wait
