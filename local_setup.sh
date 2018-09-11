@@ -69,5 +69,7 @@ ${download_o} ~/.vim/colors/plug.vim "${github_base}junegunn/vim-plug/master/plu
 mkdir -p ~/.vim/plugged/
 git clone https://github.com/fatih/vim-go.git ~/.vim/plugged/vim-go
 wait
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ${ECHO} -e "\n\e[1;34;40mDotfiles setup were finished!\n\nPlease terminate all other works and restart your shell or re-login.\n\e[0m";
